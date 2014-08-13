@@ -36,9 +36,10 @@ def get_todays_rows(doc, date_str)
 
    #collect all rows
   rows = doc.css(".row")
+
   # iterate over all rows comparing the date
    results = []
-   rows.select do |row|
+  rows.select do |row|
     # if the text matches our regex
     regex = /(puppy|pup|dog)/ 
     row.css(".hdrlink").text.match(regex)
@@ -46,18 +47,24 @@ def get_todays_rows(doc, date_str)
       row.css(".hdrlnk").text
       row.css(".hdrlnk").first["href"]
       results.push(row)
+      results
+    end
+
       ap row #testing
       puts row.text # testing
-      results
 
-      # #   date = row.css(".date").text
-      # # if date.match(date_str)  && date.match(date_str).length
-      # #   results.push(row)
-      # end
+      #iterate over all rows, comparing date
+      # rows.select do |date|
+      # date = row.css(".date")
+      row.css(".date").text.match(date_str)
+        if row.text.match(date_str)
+          # date.match(date_str) && date.match(date_str).length
+          results.push(row)
+           results
+        end
     end
-  end
-
 end
+
 
 def get_page_results
   # html = open("today.html")
@@ -68,7 +75,7 @@ end
 
 def search(date_str)
   get_page_results
-  get_todays_rows(doc, date_str)
+  # get_todays_rows(doc, date_str)
 end
 
   #regex call
